@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import CustomizeBouquet from './pages/CustomizeBouquet'
 import Login from './pages/Login'
 import Inventory from './pages/Inventory'
+import SalesHistory from './pages/SalesHistory'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
@@ -43,6 +44,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Inventory />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/historial-ventas"
+          element={
+            <ProtectedRoute>
+              <SalesHistory />
             </ProtectedRoute>
           }
         />

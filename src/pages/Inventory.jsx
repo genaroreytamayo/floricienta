@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { signOut } from 'firebase/auth'
 import {
   collection,
   onSnapshot,
@@ -10,11 +8,10 @@ import {
   doc,
 } from 'firebase/firestore'
 import toast from 'react-hot-toast'
-import { auth, db } from '../firebase/config'
+import { db } from '../firebase/config'
+import SellerNav from '../components/SellerNav'
 
 function Inventory() {
-  const navigate = useNavigate()
-
   const [inventoryItems, setInventoryItems] = useState([])
   const [newItem, setNewItem] = useState({
     name: '',
@@ -37,12 +34,6 @@ function Inventory() {
 
     return () => unsubscribe()
   }, [])
-
-  const handleLogout = async () => {
-    await signOut(auth)
-    toast.success('Sesión cerrada correctamente')
-    navigate('/login')
-  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target
@@ -114,25 +105,9 @@ function Inventory() {
 
   return (
     <main className="min-h-screen bg-black px-6 py-10 text-white">
-      <div className="fixed right-5 top-5 z-10 flex gap-3">
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="rounded-full border border-pink-400/60 px-4 py-2 text-sm font-bold text-pink-300 hover:bg-pink-500/20"
-        >
-          Volver
-        </button>
+      <SellerNav />
 
-        <button
-          type="button"
-          onClick={handleLogout}
-          className="rounded-full bg-red-500/20 px-4 py-2 text-sm font-bold text-red-300 hover:bg-red-500/30"
-        >
-          Cerrar sesión
-        </button>
-      </div>
-
-      <section className="mx-auto max-w-6xl">
+      <section className="mx-auto max-w-6xl pt-20">
         <div className="mb-8">
           <p className="text-sm uppercase tracking-[0.3em] text-pink-300">
             Panel vendedor
